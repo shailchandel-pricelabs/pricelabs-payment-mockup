@@ -225,21 +225,13 @@
   }
 
   /* ---- page header ---- */
-  .page-panel {
-    margin: 12px 16px 0;
-    background: var(--bg-app);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    box-shadow: var(--card-shadow);
-  }
-
   .page-header {
     flex: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 12px;
+    padding: 14px 16px;
   }
 
   .page-header-left {
@@ -304,6 +296,12 @@
 
   .callout strong { font-weight: 600; color: var(--text-primary); }
 
+  .callout a {
+    color: var(--text-primary);
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
   /* ---- empty state ---- */
   .empty-state {
     display: flex;
@@ -350,14 +348,16 @@
 
   .empty-state-cta {
     margin-top: 14px;
+    height: 40px;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     background: var(--accent-red);
     color: #fff;
     font-size: 14px;
     font-weight: 600;
-    padding: 9px 16px;
+    padding: 0 16px;
     border-radius: 6px;
     border: none;
   }
@@ -369,6 +369,7 @@
 
   .btn-secondary {
     width: 100%;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -378,20 +379,13 @@
     border: 1px solid var(--border);
     font-size: 14px;
     font-weight: 600;
-    padding: 9px 16px;
+    padding: 0 16px;
     border-radius: 6px;
     font-family: inherit;
     cursor: pointer;
   }
 
   .btn-secondary svg { width: 14px; height: 14px; }
-
-  .method-caption {
-    font-size: 11px;
-    color: var(--text-muted);
-    text-align: center;
-    margin-top: -3px;
-  }
 
   /* ---- multi-step views ---- */
   .view { display: none; flex-direction: column; gap: 14px; }
@@ -443,6 +437,7 @@
 
   .btn-primary {
     width: 100%;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -451,7 +446,7 @@
     color: #fff;
     font-size: 14px;
     font-weight: 600;
-    padding: 11px 16px;
+    padding: 0 16px;
     border-radius: 6px;
     border: none;
     font-family: inherit;
@@ -462,6 +457,7 @@
 
   .btn-paypal {
     width: 100%;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -471,8 +467,8 @@
     font-size: 14.5px;
     font-weight: 800;
     font-style: italic;
-    padding: 12px 16px;
-    border-radius: 10px;
+    padding: 0 16px;
+    border-radius: 6px;
     border: none;
     font-family: inherit;
     cursor: pointer;
@@ -734,14 +730,12 @@
       </div>
     </div>
 
-    <div class="page-panel" id="pagePanel">
-      <div class="page-header" id="pageHeader">
-        <div class="page-header-left">
-          <div class="icon-btn" id="backBtn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>
-          </div>
-          <div class="page-title" id="pageTitle">Payment Method</div>
+    <div class="page-header" id="pageHeader">
+      <div class="page-header-left">
+        <div class="icon-btn" id="backBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>
         </div>
+        <div class="page-title" id="pageTitle">Payment Method</div>
       </div>
     </div>
 
@@ -776,12 +770,12 @@
 
         <div class="callout">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <p>To view and subscribe to new <strong>Subscription Bundles</strong>, log in to PriceLabs from a computer and visit your Billing page.</p>
+          <p>Your free trial ends in <strong>266 days</strong>. You can add a new payment method to continue to use PriceLabs after <strong>20-May-2027</strong>.</p>
         </div>
 
         <div class="callout">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <p>Your free trial ends in <strong>266 days</strong>. You can add a new payment method to continue to use PriceLabs after <strong>20-May-2027</strong>.</p>
+          <p>To view and subscribe to new <strong>Subscription Bundles</strong>, <a href="https://app.pricelabs.co/billing" target="_blank" rel="noopener">log in to PriceLabs from a computer and visit your Billing page</a>.</p>
         </div>
       </div>
 
@@ -912,14 +906,12 @@
     if (type === "bank") {
       return '<button class="btn-secondary" onclick="go(\'bank-form\')">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>' +
-        "Add Bank Account</button>" +
-        '<div class="method-caption">US bank accounts only</div>';
+        "Add Bank Account</button>";
     }
     if (type === "paypal") {
       return '<button class="btn-paypal" id="paypalConnectBtn" onclick="connectPaypal()">' +
         ICONS.paypal +
-        '<span id="paypalBtnLabel">PayPal</span></button>' +
-        '<div class="method-caption">Rendered by PayPal’s SDK &mdash; style isn’t fully customizable</div>';
+        '<span id="paypalBtnLabel">PayPal</span></button>';
     }
     return "";
   }
@@ -928,7 +920,7 @@
     var types = ["card"];
     if (config.ach) types.push("bank");
     if (config.paypal) types.push("paypal");
-    types = types.filter(function (t) { return t !== excludeType; });
+    types = types.filter(function (t) { return t === "card" || t !== excludeType; });
     document.getElementById(containerId).innerHTML = types.map(methodButtonHtml).join("");
   }
 
@@ -939,7 +931,7 @@
     document.getElementById("view-" + view).classList.add("active");
 
     var cfg = HEADERS[view];
-    document.getElementById("pagePanel").style.display = cfg.hideHeader ? "none" : "block";
+    document.getElementById("pageHeader").style.display = cfg.hideHeader ? "none" : "flex";
     document.getElementById("pageTitle").innerHTML = cfg.title;
   }
 
