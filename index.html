@@ -1,37 +1,39 @@
 <title>Payment Method Screen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+  /* Design tokens pulled from PriceLabs' Figma file "Account Settings — Billing" (node 2444:10903) */
   :root {
-    --bg-page: #eef1f4;
+    --bg-page: #f4f5f7;
     --bg-app: #ffffff;
-    --bg-surface: #f7f8fa;
-    --bg-surface-2: #eef0f3;
-    --border: #e3e6ea;
-    --border-strong: #cfd4d9;
-    --text-primary: #161a1d;
-    --text-secondary: #5a6169;
-    --text-muted: #8b929a;
-    --accent-red: #e6402c;
+    --bg-surface: #ffffff;
+    --bg-surface-2: #f4f5f7;
+    --tag-bg: #e0e0e0;
+    --border: #e0e0e0;
+    --border-strong: #cccccc;
+    --text-primary: #333333;
+    --text-secondary: #7a7a7a;
+    --text-muted: #9a9a9a;
+    --accent-red: #e63e3d;
+    --accent-red-tint: #f37579;
     --accent-blue: #2f7fe0;
     --accent-blue-bg: rgba(47, 127, 224, 0.08);
     --accent-blue-border: rgba(47, 127, 224, 0.3);
     --paypal-yellow: #ffc43a;
     --paypal-navy: #12285e;
     --badge-danger: #ef4a45;
-    --font-ui: "Inter", -apple-system, "Segoe UI", sans-serif;
+    --header-bg: #333333;
+    --card-shadow: 0 0 4px rgba(51, 51, 51, 0.1);
+    --font-ui: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
   }
 
   * { box-sizing: border-box; }
 
   body {
     margin: 0;
-    background: var(--bg-page);
-    background-image:
-      radial-gradient(circle at 20% 10%, rgba(230, 64, 44, 0.06), transparent 40%),
-      radial-gradient(circle at 80% 90%, rgba(47, 127, 224, 0.06), transparent 40%);
+    background: #eef1f4;
     font-family: var(--font-ui);
     color: var(--text-primary);
     min-height: 100vh;
@@ -161,109 +163,145 @@
     z-index: 20;
   }
 
+  /* ---- browser chrome ---- */
+  .url-bar {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    margin: 8px 12px 0;
+    background: var(--bg-surface-2);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
   /* ---- top bar ---- */
   .topbar {
     flex: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 22px 18px 12px;
+    padding: 14px 16px;
+    background: var(--header-bg);
   }
 
   .brand {
     display: flex;
     align-items: center;
-    gap: 7px;
   }
 
-  .brand-mark {
-    width: 22px;
-    height: 22px;
-    color: var(--accent-red);
-  }
-
-  .brand-word {
-    font-size: 17px;
-    font-weight: 800;
-    color: var(--accent-red);
-    letter-spacing: -0.01em;
-  }
+  .brand svg { display: block; height: 20px; width: auto; }
 
   .topbar-right {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
+  }
+
+  .bell-btn {
+    position: relative;
+    color: #fff;
+    display: flex;
+    width: 20px;
+    height: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bell-btn svg { width: 17px; height: 17px; }
+
+  .bell-dot {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-red);
+    border: 1.5px solid var(--header-bg);
   }
 
   .lang {
     display: flex;
     align-items: center;
     gap: 5px;
-    color: var(--text-secondary);
-    font-size: 13px;
-    font-weight: 500;
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 5px 8px;
+    border-radius: 4px;
   }
 
-  .lang svg { width: 16px; height: 16px; }
+  .lang svg { width: 13px; height: 13px; }
 
   .avatar {
-    width: 30px;
-    height: 30px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     background: var(--accent-red);
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 11px;
+    font-weight: 600;
   }
 
   /* ---- page header ---- */
+  .page-panel {
+    margin: 12px 16px 0;
+    background: var(--bg-app);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+  }
+
   .page-header {
     flex: none;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 4px 18px 16px;
+    padding: 12px;
   }
 
   .page-header-left {
     display: flex;
-    align-items: flex-start;
-    gap: 10px;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
   }
 
   .icon-btn {
-    width: 30px;
-    height: 30px;
-    border-radius: 9px;
-    background: var(--bg-surface-2);
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    background: var(--bg-app);
     border: 1px solid var(--border);
-    color: var(--text-secondary);
+    color: var(--text-primary);
     display: flex;
     align-items: center;
     justify-content: center;
     flex: none;
   }
 
-  .icon-btn svg { width: 15px; height: 15px; }
+  .icon-btn svg { width: 14px; height: 14px; }
   .icon-btn { cursor: pointer; }
 
   .page-title {
-    font-size: 19px;
-    font-weight: 700;
-    line-height: 1.28;
-    letter-spacing: -0.01em;
-    margin-top: 2px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
   }
 
   /* ---- scroll content ---- */
   .content {
     flex: 1;
     overflow-y: auto;
-    padding: 4px 18px 24px;
+    padding: 12px 16px 24px;
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -299,15 +337,16 @@
     align-items: center;
     text-align: center;
     gap: 6px;
-    background: var(--bg-surface);
+    background: var(--bg-app);
     border: 1px dashed var(--border-strong);
-    border-radius: 16px;
-    padding: 34px 24px 28px;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    padding: 32px 20px 24px;
   }
 
   .empty-state-icon {
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: var(--bg-surface-2);
     border: 1px solid var(--border);
@@ -318,19 +357,19 @@
     margin-bottom: 6px;
   }
 
-  .empty-state-icon svg { width: 22px; height: 22px; }
+  .empty-state-icon svg { width: 20px; height: 20px; }
 
   .empty-state h3 {
     margin: 0;
-    font-size: 15px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 600;
     color: var(--text-primary);
   }
 
   .empty-state p {
     margin: 0;
     max-width: 260px;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.5;
     color: var(--text-secondary);
   }
@@ -342,14 +381,14 @@
     gap: 6px;
     background: var(--accent-red);
     color: #fff;
-    font-size: 13.5px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 600;
     padding: 9px 16px;
-    border-radius: 9px;
+    border-radius: 4px;
     border: none;
   }
 
-  .empty-state-cta svg { width: 15px; height: 15px; }
+  .empty-state-cta svg { width: 14px; height: 14px; }
   .empty-state-cta { cursor: pointer; }
 
   .cta-stack { display: flex; flex-direction: column; gap: 8px; width: 100%; margin-top: 14px; }
@@ -362,16 +401,16 @@
     gap: 6px;
     background: var(--bg-app);
     color: var(--text-primary);
-    border: 1px solid var(--border-strong);
-    font-size: 13.5px;
-    font-weight: 700;
+    border: 1px solid var(--border);
+    font-size: 14px;
+    font-weight: 600;
     padding: 9px 16px;
-    border-radius: 9px;
+    border-radius: 4px;
     font-family: inherit;
     cursor: pointer;
   }
 
-  .btn-secondary svg { width: 15px; height: 15px; }
+  .btn-secondary svg { width: 14px; height: 14px; }
 
   .method-caption {
     font-size: 11px;
@@ -387,9 +426,10 @@
 
   /* ---- forms ---- */
   .form-card {
-    background: var(--bg-surface);
+    background: var(--bg-app);
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -411,7 +451,7 @@
     width: 100%;
     background: var(--bg-surface-2);
     border: 1px solid var(--border);
-    border-radius: 9px;
+    border-radius: 4px;
     padding: 10px 12px;
     font-size: 14px;
     font-family: inherit;
@@ -420,8 +460,8 @@
   }
 
   .field input:focus, .field select:focus {
-    border-color: var(--accent-blue);
-    box-shadow: 0 0 0 3px var(--accent-blue-bg);
+    border-color: var(--accent-red);
+    box-shadow: 0 0 0 3px rgba(230, 62, 61, 0.12);
   }
 
   .field-row { display: flex; gap: 10px; }
@@ -436,9 +476,9 @@
     background: var(--accent-red);
     color: #fff;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
     padding: 11px 16px;
-    border-radius: 10px;
+    border-radius: 4px;
     border: none;
     font-family: inherit;
     cursor: pointer;
@@ -522,60 +562,65 @@
 
   /* ---- populated method card ---- */
   .method-card {
-    background: var(--bg-surface);
+    background: var(--bg-app);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 14px;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    padding: 12px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
   }
 
   .method-card-icon {
     flex: none;
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
+    width: 70px;
+    height: 40px;
+    border-radius: 4px;
+    background: var(--bg-app);
+    border: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: var(--text-primary);
   }
 
-  .method-card-icon svg { width: 18px; height: 18px; }
-  .method-card-icon.card { background: #3a3f46; }
-  .method-card-icon.bank { background: #1f4fa8; }
-  .method-card-icon.paypal { background: var(--paypal-yellow); color: var(--paypal-navy); }
+  .method-card-icon svg { width: 26px; height: 26px; }
+  .method-card-icon.bank svg, .method-card-icon.paypal svg { width: 18px; height: 18px; }
+  .method-card-icon.bank { color: #1f4fa8; }
+  .method-card-icon.paypal { color: #142c8e; }
 
   .method-card-body { flex: 1; min-width: 0; }
-  .method-card-number { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
-  .method-card-sub { font-size: 12.5px; color: var(--text-secondary); margin-top: 2px; }
+  .method-card-number { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+  .method-card-sub { font-size: 14px; color: var(--text-primary); margin-top: 4px; }
 
   .trash-btn {
     flex: none;
     width: 32px;
     height: 32px;
-    border-radius: 9px;
+    border-radius: 4px;
+    background: var(--bg-app);
+    border: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-muted);
-    background: transparent;
-    border: none;
+    color: var(--text-primary);
     cursor: pointer;
   }
 
-  .trash-btn svg { width: 16px; height: 16px; }
+  .trash-btn svg { width: 14px; height: 14px; }
 
   .default-badge {
     align-self: flex-start;
-    background: var(--bg-surface-2);
-    border: 1px solid var(--border);
-    color: var(--text-secondary);
+    background: var(--tag-bg);
+    color: var(--text-primary);
     font-size: 12px;
-    font-weight: 600;
-    padding: 6px 11px;
-    border-radius: 8px;
+    font-weight: 400;
+    padding: 4px 8px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
   }
 
   .method-block { display: none; flex-direction: column; gap: 10px; }
@@ -683,15 +728,23 @@
   <div class="screen">
     <div class="notch"></div>
 
+    <div class="url-bar">pricelabs.co</div>
+
     <div class="topbar">
       <div class="brand">
-        <svg class="brand-mark" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2 L21 8 L21 16 L12 22 L3 16 L3 8 Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-          <path d="M8 12 H16 M12 8 V16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        <svg viewBox="0 0 106.245 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.9996 28C21.7314 28 28 21.7318 28 14C28 6.26818 21.7321 0 13.9996 0C6.26716 0 0 6.26818 0 14C0 21.7318 6.26786 28 13.9996 28Z" fill="#E63E3D"/>
+          <path d="M33.6244 7.86792H38.5522C39.8126 7.86792 40.7915 8.17472 41.4891 8.78832C42.1866 9.40193 42.5357 10.2723 42.5357 11.3986C42.5357 12.5144 42.1866 13.384 41.4891 14.0089C40.7922 14.6338 39.8126 14.9462 38.5522 14.9462H35.3629V19.6646H33.6244V7.86792ZM38.3675 13.5575C40.0326 13.5575 40.8649 12.8381 40.8649 11.3993C40.8649 9.97109 40.0326 9.25734 38.3675 9.25734H35.3629V13.5575H38.3675ZM49.4384 12.7203L48.4087 12.8205C47.5983 12.8988 47.0164 13.1442 46.6624 13.5568C46.3076 13.9694 46.1306 14.4941 46.1306 15.1296V19.6639H44.4266V11.4988H46.0798V12.9213C46.5192 11.9621 47.4128 11.4325 48.7634 11.3316L49.3199 11.2985L49.4384 12.7203ZM50.6028 11.4988H52.3075V19.6646H50.6028V11.4988ZM52.4429 7.85099V9.60787H50.485V7.85099H52.4429ZM58.2989 19.7817C57.466 19.7817 56.7438 19.6089 56.1302 19.2633C55.5166 18.9177 55.0447 18.4296 54.7125 17.7991C54.3804 17.1686 54.2139 16.4301 54.2139 15.5824C54.2139 14.7346 54.3853 13.987 54.7288 13.3403C55.0715 12.6935 55.5554 12.1913 56.1803 11.8345C56.8044 11.4776 57.533 11.2992 58.3659 11.2992C58.9393 11.2992 59.4937 11.3937 60.0276 11.5834C60.5622 11.7731 60.9981 12.0298 61.3359 12.3529L60.8126 13.5575C60.0699 12.9552 59.2997 12.654 58.5014 12.654C57.7135 12.654 57.0971 12.9079 56.6528 13.4157C56.2085 13.9235 55.9863 14.6401 55.9863 15.5662C55.9863 16.4809 56.2056 17.1862 56.6443 17.6827C57.083 18.1793 57.7023 18.4275 58.5014 18.4275C59.2997 18.4275 60.0706 18.1264 60.8126 17.524L61.3359 18.7456C60.9762 19.0693 60.5255 19.3225 59.986 19.5066C59.4464 19.69 58.8836 19.7817 58.2989 19.7817ZM69.8932 15.8666H64.071C64.1945 17.596 65.0613 18.46 66.67 18.46C67.6151 18.46 68.4706 18.1532 69.2359 17.5396L69.7592 18.7273C69.3762 19.051 68.9044 19.3077 68.3416 19.4967C67.7787 19.6865 67.2053 19.781 66.6207 19.781C65.3039 19.781 64.2664 19.4072 63.5068 18.6596C62.7472 17.912 62.367 16.8801 62.367 15.564C62.367 14.7276 62.5335 13.9856 62.8657 13.3389C63.1979 12.6921 63.6641 12.1899 64.2664 11.8331C64.868 11.4762 65.5514 11.2977 66.3167 11.2977C67.4303 11.2977 68.3056 11.6546 68.9411 12.3684C69.5772 13.0821 69.8946 14.0695 69.8946 15.3299V15.8666H69.8932ZM66.3491 12.5362C65.696 12.5362 65.1762 12.7401 64.7876 13.147C64.3997 13.554 64.1655 14.1372 64.0873 14.8954H68.4248C68.3909 14.1365 68.197 13.554 67.8429 13.147C67.4882 12.7401 66.9902 12.5362 66.3491 12.5362Z" fill="#E63E3D"/>
+          <path d="M84.4412 11.2985C85.5443 11.2985 86.3631 11.5721 86.897 12.1187C87.4316 12.6653 87.6989 13.4961 87.6989 14.6119V19.6653H86.062V18.3097C85.8483 18.7893 85.5302 19.1547 85.1091 19.4058C84.6866 19.6568 84.1943 19.7824 83.6322 19.7824C83.092 19.7824 82.5969 19.6738 82.1469 19.4558C81.6969 19.2386 81.345 18.9346 81.0918 18.5439C80.8386 18.1532 80.7116 17.7187 80.7116 17.2384C80.7116 16.6474 80.8668 16.1812 81.1764 15.8412C81.4853 15.5013 81.9974 15.2587 82.7125 15.1134C83.4263 14.9681 84.4081 14.8961 85.6578 14.8961H86.0457V14.4109C86.0457 13.786 85.9138 13.3346 85.6494 13.0553C85.3849 12.7767 84.9539 12.6371 84.3587 12.6371C83.4242 12.6371 82.4911 12.9213 81.5566 13.4905L81.0502 12.3021C81.4889 12.0009 82.0206 11.7583 82.6448 11.5742C83.2683 11.3901 83.8671 11.2985 84.4412 11.2985ZM91.7325 7.86792V12.8374C91.98 12.3465 92.3397 11.9671 92.8123 11.6998C93.2848 11.4318 93.83 11.2985 94.4493 11.2985C95.1694 11.2985 95.8048 11.4712 96.3564 11.8168C96.9079 12.1624 97.3381 12.6533 97.6477 13.2895C97.9567 13.9257 98.1118 14.6669 98.1118 15.5147C98.1118 16.3511 97.9574 17.0931 97.6477 17.7399C97.3381 18.3866 96.9051 18.8888 96.3479 19.2457C95.7914 19.6025 95.1581 19.781 94.4493 19.781C93.83 19.781 93.2841 19.6498 92.8123 19.3881C92.3397 19.1258 91.98 18.7491 91.7325 18.259V19.6646H90.0278V7.86792H91.7325ZM103.04 11.2985C103.625 11.2985 104.182 11.3908 104.711 11.5742C105.239 11.7583 105.695 12.0178 106.077 12.3522L105.554 13.5399C104.744 12.9037 103.906 12.5863 103.039 12.5863C102.522 12.5863 102.114 12.6865 101.815 12.8875C101.517 13.0885 101.368 13.3614 101.368 13.7077C101.368 13.9863 101.461 14.2127 101.646 14.3855C101.832 14.5583 102.128 14.6895 102.532 14.7784L103.933 15.0964C104.732 15.2749 105.316 15.5506 105.688 15.9244C106.059 16.2983 106.245 16.7863 106.245 17.3886C106.245 18.125 105.943 18.7075 105.342 19.137C104.74 19.5666 103.927 19.781 102.903 19.781C101.474 19.781 100.332 19.4354 99.4773 18.7435L100.001 17.5219C100.845 18.1687 101.829 18.4924 102.954 18.4924C103.506 18.4924 103.928 18.4 104.22 18.2166C104.513 18.0326 104.659 17.773 104.659 17.4387C104.659 17.1488 104.561 16.9203 104.364 16.7525C104.167 16.5853 103.827 16.4457 103.343 16.3342L101.976 16.0331C101.245 15.8659 100.693 15.5923 100.322 15.2128C99.9505 14.8334 99.7657 14.3538 99.7657 13.774C99.7657 13.0377 100.066 12.441 100.669 11.9833C101.27 11.527 102.061 11.2985 103.04 11.2985ZM73.7074 7.86792V18.2258H79.4795V19.6646H71.9689V7.86792H73.7074ZM86.0443 15.8497H85.741C84.8637 15.8497 84.188 15.8885 83.7155 15.9668C83.2429 16.0451 82.9058 16.1762 82.7034 16.3603C82.5009 16.5444 82.3994 16.8096 82.3994 17.1552C82.3994 17.5459 82.5433 17.8718 82.8303 18.1341C83.1167 18.3965 83.4855 18.5277 83.9355 18.5277C84.5547 18.5277 85.0604 18.3182 85.4547 17.9C85.8483 17.4817 86.045 16.9436 86.045 16.2856V15.8497H86.0443ZM94.0437 12.6533C93.3011 12.6533 92.7305 12.9044 92.3313 13.4066C91.9314 13.9087 91.7325 14.6225 91.7325 15.5485C91.7325 16.4746 91.9321 17.1883 92.3313 17.6905C92.7312 18.1927 93.3011 18.4437 94.0437 18.4437C94.7751 18.4437 95.3464 18.187 95.7569 17.6743C96.1673 17.1608 96.3726 16.4414 96.3726 15.5154C96.3726 14.6006 96.1709 13.8953 95.7653 13.3988C95.3612 12.9016 94.7864 12.6533 94.0437 12.6533Z" fill="white"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M5.01667 14L11.2974 7.70004L13.284 9.69276L8.9899 14L13.284 18.3073L11.2974 20.3L5.01667 14Z" fill="white"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M22.9833 14L16.7027 20.3L14.716 18.3073L19.0101 14L14.716 9.69272L16.7026 7.7L22.9833 14Z" fill="white"/>
         </svg>
-        <span class="brand-word">PriceLabs</span>
       </div>
       <div class="topbar-right">
+        <div class="bell-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10a6 6 0 0 1 12 0c0 3.2 1 5 1.6 5.8H4.4C5 15 6 13.2 6 10Z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+          <span class="bell-dot"></span>
+        </div>
         <div class="lang">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9s1.3-6.4 3.8-9z"/></svg>
           EN
@@ -701,12 +754,14 @@
       </div>
     </div>
 
-    <div class="page-header" id="pageHeader">
-      <div class="page-header-left">
-        <div class="icon-btn" id="backBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>
+    <div class="page-panel" id="pagePanel">
+      <div class="page-header" id="pageHeader">
+        <div class="page-header-left">
+          <div class="icon-btn" id="backBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>
+          </div>
+          <div class="page-title" id="pageTitle">Payment Method</div>
         </div>
-        <div class="page-title" id="pageTitle">Subscription &amp;<br>Payment Method</div>
       </div>
     </div>
 
@@ -819,7 +874,7 @@
 
     <div class="tabbar">
       <div class="tab">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.5 2c.7 2.6-.4 4-1.6 5.4-1.3 1.5-2.7 3.1-2.7 5.9 0 .8.2 1.5.5 2.1-1.2-.8-2-2.2-2-4.1 0-.5-.6-.7-.9-.3C4.7 12.3 4 14 4 15.7 4 19.7 7.4 23 11.6 23s7.6-3.1 7.6-7.1c0-6.2-3.7-8.6-6.1-13.5-.2-.4-.7-.5-.6-.4Z"/></svg>
         <span>Dynamic Pricing</span>
       </div>
       <div class="tab">
@@ -843,14 +898,14 @@
 
 <script>
   var HEADERS = {
-    home: { title: "Subscription &amp;<br>Payment Method", hideHeader: false },
+    home: { title: "Payment Method", hideHeader: false },
     "card-form": { title: "Add Credit Card", hideHeader: false },
     "bank-form": { title: "Add Bank Account", hideHeader: false },
     success: { title: "", hideHeader: true }
   };
 
   var ICONS = {
-    card: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 10h19"/></svg>',
+    card: '<svg viewBox="0 0 24 24"><circle cx="9.5" cy="12" r="7" fill="#e63e3d"/><circle cx="14.5" cy="12" r="7" fill="#f7a326" fill-opacity="0.9"/></svg>',
     bank: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9M9.5 10v9M14.5 10v9M19 10v9"/><path d="M3 19h18"/></svg>',
     paypal: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 4h6.2c3 0 4.7 1.6 4.2 4.4-.5 3.3-2.7 5-6 5H10l-1 6H6l2-11.4Z"/></svg>'
   };
@@ -904,7 +959,7 @@
     document.getElementById("view-" + view).classList.add("active");
 
     var cfg = HEADERS[view];
-    document.getElementById("pageHeader").style.display = cfg.hideHeader ? "none" : "flex";
+    document.getElementById("pagePanel").style.display = cfg.hideHeader ? "none" : "block";
     document.getElementById("pageTitle").innerHTML = cfg.title;
   }
 
@@ -941,11 +996,11 @@
   function saveCard(e) {
     e.preventDefault();
     var digits = document.getElementById("cardNumber").value.replace(/\D/g, "");
-    var expiry = document.getElementById("cardExpiry").value;
+    var name = document.getElementById("cardName").value || "Card holder";
     var last4 = digits.slice(-4) || "0000";
     showSuccess(
       "Card ending in " + last4 + " has been added as your payment method.",
-      { iconClass: "card", number: "**** " + last4, sub: "Expires " + (expiry || "--/--") }
+      { iconClass: "card", number: "**** **** **** " + last4, sub: name }
     );
     return false;
   }
